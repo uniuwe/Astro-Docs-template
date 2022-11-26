@@ -81,14 +81,14 @@ const imageURL = new URL(image ?? './Social.png', Astro.site);
   <meta name="summary" content={description} />
   <!-- Open Graph / Facebook -->
   <meta property="og:url" content={canonicalURL} />
-  {imageURL && (<meta property="og:image" content={imageURL} />
+  {image && (<meta property="og:image" content={imageURL} />
   <meta property="og:image:alt" content="Banner for site, showing page title in a playful way" />
   <meta property="og:image:secure_url" content={imageURL} />)}
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content={canonicalURL} />
-  <meta property="twitter:image" content={imageURL} />
+  {image && <meta property="twitter:image" content={imageURL} />}
 
   <meta name="author" content="Sukhpreet Singh, sukhpreetben10@gmail.com" />
   <meta property="twitter:site" content="@XSukhpreet" />
@@ -142,7 +142,7 @@ const imageURL = new URL(image ?? './Social.png', Astro.site);
     }
   </style>
 </head>
-<body>
-  
+<body class={className}>
+			<slot />
 </body>
 </html>
