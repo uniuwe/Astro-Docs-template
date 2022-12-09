@@ -6,15 +6,18 @@
 
 Unofficial Docs Template to reduce the weight of handling 👇
 
--   SEO & Social Media Meta Tags
--   File Structure
+-   [ ] SEO & Social Media Meta Tags
+-   [ ] RSS & Sitemap Support
+-   [ ] File Structure
+-   [ ] MDX Integration
 -   Basic Components
-    -   Table of Content
-    -   Navigation Bar
-    -   Dark Mode
--   Search Integration
--   Alias, Tag
--   Cli Support
+    -   [] Table of Content
+    -   [] Navigation Bar
+    -   [] Dark Mode
+-   [ ] Search Integration
+-   [ ] Alias, Tag
+-   [ ] Cli Support
+-   [ ] Tailwindcss
 
 Packed with
 

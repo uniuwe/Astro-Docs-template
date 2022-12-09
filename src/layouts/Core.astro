@@ -1,5 +1,6 @@
 ---
 import "~/tailwind.css"
+import { Sprite } from 'astro-icon'
 
 export interface Props {
   title: string
@@ -16,14 +17,13 @@ const {
   image,
   class: className = '',
   isArticle,
-  date: publishedDate
+  date: publishedDate,
 } = Astro.props;
 
 const date = new Date(publishedDate ? publishedDate.includes('|') ? publishedDate.split('|')[0]+publishedDate.split('|')[2] : publishedDate : null).toString()
 
 const canonicalURL = new URL(Astro.url.pathname.replace(/([^/]$)/,'$1/'),Astro.site)
 const imageURL = new URL(image ?? './Social.png', Astro.site);
-
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -143,6 +143,8 @@ const imageURL = new URL(image ?? './Social.png', Astro.site);
   </style>
 </head>
 <body class={className}>
-			<slot />
+  <Sprite.Provider>
+		<slot />
+  </Sprite.Provider>
 </body>
 </html>

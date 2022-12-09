@@ -3,7 +3,7 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
-	content: ['./src/**/*.{astro,html,js,jsx,mdx,svelte,ts,tsx}'],
+  content: ['./src/**/*.{astro,html,js,jsx,mdx,svelte,ts,tsx}'],
   theme: {
     screens: {
 			xxs: '360px',
@@ -31,5 +31,5 @@ module.exports = {
       }
 		},
 	},
-	plugins: [require('@tailwindcss/typography')],
+	plugins: [require('@tailwindcss/typography'),require('@tailwindcss/line-clamp')],
 };

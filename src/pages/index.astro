@@ -1,5 +1,73 @@
 ---
-import '~/tailwind.css';
-const text = "Hello World"
+import Body from "~/layouts/Default.astro"
+
+const title = "Hello Nice World"
+const writings = await Astro.glob('./writings/**/*.mdx')
 ---
-<h1 class="text-9xl text-slate-900 p-4"> {text} </h1>
+<Body title={title} description="Description">
+  <h2 class="text-7xl font-black mt-32">Writings</h2>
+  <ul>
+  {	writings.map(({ frontmatter: { title, description, publishedOn, image }, url }) => {
+				const filePathArr: string[] = url.split('/');
+				const fileName = filePathArr[filePathArr.length - 1];
+				return (
+					<li class="">
+						<div class="flex">
+							{/* {image === 'filename' ? (
+							// 	<Image
+							// 		class="rounded-l-xl"
+							// 		src={import(`../images/${fileName}.png`)}
+							// 		alt="100"
+							// 		height={192}
+							// 		width={340.48}
+							// 	/>
+							// ) : image !== undefined ? (
+							// 	<Image
+							// 		class="rounded-l-xl"
+							// 		src={import(`../images/${image}.png`)}
+							// 		alt="100"
+							// 		height={720}
+							// 		width={1280}
+							// 	/>
+							// ) : (
+							// 	''
+							// )}
+              */}
+							<article
+								class={`w-64 flex place-content-between flex-col items-baseline p-4 h-48 bg-gradient-to-br ${
+									image === undefined ? 'rounded-lg' : 'rounded-r-lg'
+								}`}
+							>
+								<dl>
+									<dt class="sr-only">Published On</dt>
+									<dd class="font-medium text-orange-100 text-sm text-shadow">
+										<time datetime={new Date(publishedOn).toISOString()}>
+											{publishedOn.split(' ')[1]},{publishedOn.split(' ')[3]}
+										</time>
+									</dd>
+								</dl>
+								<div class="h-full flex flex-col">
+									<h1 class={`text-xl font-semibold`}>{title}</h1>
+									<p
+										class={`text-shadow text-lg ${
+											title === '10 Design Patterns in TypeScript' ? 'line-clamp-2' : 'line-clamp-3'
+										}`}
+									>
+										{description}
+									</p>
+								</div>
+								<a
+									href={url}
+									class={`rounded-md px-1 text-sm font-bold transition-colors cursor-pointer`}
+								>
+									read more →
+								</a>
+							</article>
+						</div>
+					</li>
+				);
+			})
+}
+</ul>
+
+</Body>
