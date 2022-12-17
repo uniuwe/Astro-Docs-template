@@ -1,12 +1,42 @@
 ---
+import { Sprite } from 'astro-icon';
 import Body from '~/layouts/Default.astro';
-
+import FactMachine from '~/ui/Home/FactMachine.astro';
+import Link from '~/ui/Link.astro';
 const title = 'Hello Nice World';
 const writings = await Astro.glob('./writings/**/*.mdx');
 ---
 
-<Body title={title} description="Description">
-	<h2 class="text-7xl font-black mt-32">Writings</h2>
+<Body title={title} description="Description" class="mt-16 w-full">
+	<h1
+		class="max-w-6xl xl:text-8xl lg:text-7xl md:text-6xl sm:text-5xl text-4xl font-black text-slate-900 mb-8"
+	>
+		Welcome to a expressive, portal to share my views, learnings and reflect myself to you.🙂
+	</h1>
+	<h2
+		class="max-w-6xl w-full font-code font-bold xl:text-5xl lg:text-4xl md:text-3xl sm:text-2xl text-xl text-slate-600 mb-14"
+	>
+		Aside from sharing and caring for others, I built software that help to solve real life problems
+		for others, Currently working at <Link
+			bg="bg-blue-500"
+			href="https://www.bhuman.ai/"
+			underlineBg="bg-blue-500"
+			class="inline-block text-blue-500 hover:text-white delay-75 transition-colors"
+		>
+			XYZ
+		</Link> as a Front-end Engineer.
+	</h2>
+	<FactMachine />
+	<!-- <div class="shadow-sm p-3">
+        <div style="background-image: url(https://avatars.githubusercontent.com/u/10172199?v=4);" class="bg-no-repeat bg-cover w-16 h-16 rounded-full"></div>
+        <div class="font-semibold">
+            <h1 class="text-4xl">Jeff Delaney</h1>
+            <h2 class="text-lg"> Creator of @fireship-io </h2>
+        </div>
+    </div> -->
+	<h2 class="xl:text-7xl lg:text-6xl md:text-5xl sm:text-4xl text-3xl font-black mt-32">
+		Writings
+	</h2>
 	<ul>
 		{
 			writings.map(({ frontmatter: { title, description, publishedOn, image }, url }) => {
@@ -42,7 +72,7 @@ const writings = await Astro.glob('./writings/**/*.mdx');
 							>
 								<dl>
 									<dt class="sr-only">Published On</dt>
-									<dd class="font-medium text-orange-100 text-sm text-shadow">
+									<dd class="font-medium text-sm text-shadow">
 										<time datetime={new Date(publishedOn).toISOString()}>
 											{publishedOn.split(' ')[1]},{publishedOn.split(' ')[3]}
 										</time>
