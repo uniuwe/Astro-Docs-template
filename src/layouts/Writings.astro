@@ -1,15 +1,21 @@
 ---
-import Body from "./Default.astro"
+import Body from './Default.astro';
 
-const {frontmatter} = Astro.props;
+const { frontmatter } = Astro.props;
 const tags = frontmatter?.tags || [];
-console.log(tags)
 ---
 
-<Body title={frontmatter.title} description={frontmatter.description} date={frontmatter.publishedOn} isArticle={true} class="grid grid-cols-12">
-    <aside class="h-96 bg-slate-400"></aside>
-    <article class=" col-start-2 col-end-11 prose">
+<Body
+	title={frontmatter.title}
+	description={frontmatter.description}
+	date={frontmatter.publishedOn}
+	isArticle={true}
+	class="flex flex-row items-start place-content-around w-full"
+>
+	<article class="grow prose md:prose-base lg:prose-lg xl:prose-xl">
         <slot/>
-    </article>
-    <aside class="bg-slate-400 h-96 w-full">a</aside>
+	</article>
+	<aside class="hidden min-[854px]:block sticky top-24 rounded-lg pl-4 shrink-0 w-64">
+		<div class="bg-slate-400 w-full h-96 rounded-lg"></div>
+	</aside>
 </Body>
