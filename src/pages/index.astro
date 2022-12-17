@@ -1,13 +1,15 @@
 ---
-import Body from "~/layouts/Default.astro"
+import Body from '~/layouts/Default.astro';
 
-const title = "Hello Nice World"
-const writings = await Astro.glob('./writings/**/*.mdx')
+const title = 'Hello Nice World';
+const writings = await Astro.glob('./writings/**/*.mdx');
 ---
+
 <Body title={title} description="Description">
-  <h2 class="text-7xl font-black mt-32">Writings</h2>
-  <ul>
-  {	writings.map(({ frontmatter: { title, description, publishedOn, image }, url }) => {
+	<h2 class="text-7xl font-black mt-32">Writings</h2>
+	<ul>
+		{
+			writings.map(({ frontmatter: { title, description, publishedOn, image }, url }) => {
 				const filePathArr: string[] = url.split('/');
 				const fileName = filePathArr[filePathArr.length - 1];
 				return (
@@ -67,7 +69,6 @@ const writings = await Astro.glob('./writings/**/*.mdx')
 					</li>
 				);
 			})
-}
-</ul>
-
+		}
+	</ul>
 </Body>
