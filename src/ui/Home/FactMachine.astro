@@ -1,0 +1,59 @@
+---
+import { Sprite } from 'astro-icon';
+---
+
+<!-- Wrap the component elements in our custom element “astro-heart”. -->
+<fact-machine>
+	<p class="xl:text-4xl font-semibold lg:text-3xl md:text-2xl sm:text-xl text-base">
+		I am learning golang Currently.
+	</p>
+	<button
+		class="group xl:text-3xl hover:text-white font-semibold lg:text-2xl md:text-xl sm:text-base text-sm px-2 py-1 bg-blue-400 flex items-center rounded-xl mt-2"
+	>
+		Another Fact
+		<span class="relative">
+			<Sprite
+				name="fluent:cursor-click-24-regular"
+				class="w-10 h-10 group-focus-visible:opacity-0 group-hover:opacity-0 group-focus-visible:duration-300 group-focus-visible:scale-95 group-hover:scale-95 transition-[opacity,transform] duration-100 group-hover:duration-300"
+			/>
+			<Sprite
+				name="fluent:cursor-click-24-filled"
+				class="w-10 h-10 absolute opacity-0 group-focus-visible:opacity-100 group-hover:opacity-100 -translate-y-full scale-100 group-active:scale-90 group-focus-visible:scale-95 group-hover:scale-95 transition-[opacity,transform] duration-100"
+			/>
+		</span>
+	</button>
+</fact-machine>
+
+<script>
+	// Define the behaviour for our new type of HTML element.
+	class FactMachine extends HTMLElement {
+		constructor() {
+			super();
+			const Facts = [
+				'I am learning Golang',
+				'I Joined BhumanAI',
+				'Got First Internship in First Semester',
+				'Learning Tailwindcss since 3years',
+				'Single Child of My Parent',
+				'Currently Jobless!',
+			];
+			const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+			let genFact = (prev) => {
+				const f = Facts[random(0, Facts.length)];
+				if (prev !== f) {
+					return f;
+				}
+				return genFact(prev);
+			};
+			const btn = this.querySelector('button');
+			const textEl = this.querySelector('p');
+			// Each time the button is clicked, update the count.
+			btn.addEventListener('click', () => {
+				textEl.textContent = genFact(textEl.textContent);
+			});
+		}
+	}
+
+	// Tell the browser to use our AstroHeart class for <astro-heart> elements.
+	customElements.define('fact-machine', FactMachine);
+</script>
