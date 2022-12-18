@@ -43,6 +43,7 @@ const writings = await Astro.glob('./writings/**/*.mdx');
 				const filePathArr: string[] = url.split('/');
 				const fileName = filePathArr[filePathArr.length - 1];
 				return (
+                    // https://play.tailwindcss.com/vui5oS9q4P
 					<article class="flex relative h-full w-full aspect-video overflow-hidden flex-col place-content-between items-baseline rounded-lg bg-gradient-to-br from-violet-400 to-purple-600 p-4">
 						<dl>
 							<dt class="sr-only">Published On</dt>
