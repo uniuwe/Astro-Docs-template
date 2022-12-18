@@ -37,25 +37,25 @@ const writings = await Astro.glob('./writings/**/*.mdx');
 	<h2 class="xl:text-7xl lg:text-6xl md:text-5xl sm:text-4xl text-3xl font-black mt-32 mb-10">
 		Writings
 	</h2>
-	<div class="grid grid-cols-4">
+	<div class="grid grid-cols-8 gap-4 grid-flow-dense">
 		{
-			writings.map(({ frontmatter: { title, description, publishedOn, image }, url }) => {
+			writings.map(({ frontmatter: { title, description, publishedOn, image, cls }, url }) => {
 				const filePathArr: string[] = url.split('/');
 				const fileName = filePathArr[filePathArr.length - 1];
 				return (
                     // https://play.tailwindcss.com/vui5oS9q4P
-					<article class="flex relative h-full w-full aspect-video overflow-hidden flex-col place-content-between items-baseline rounded-lg bg-gradient-to-br from-violet-400 to-purple-600 p-4">
+					<article class={`${cls} @container row flex relative bg-slate-300 overflow-hidden flex-col rounded-lg bg-gradient-to-br from-violet-400 to-purple-600 p-4`}>
 						<dl>
 							<dt class="sr-only">Published On</dt>
-							<dd class="text-shadow text-sm font-medium text-purple-900">
+							<dd class="text-shadow font-medium text-purple-900 @xl:text-3xl @md:text-2xl @lg:text-xl @xs:text-lg">
 								<time datetime={new Date(publishedOn).toISOString()}>
 									{publishedOn.split(' ')[1]},{publishedOn.split(' ')[3]}
 								</time>
 							</dd>
 						</dl>
 						<div class="flex h-full flex-col">
-							<h1 class={`text-xl text-white font-semibold`}>{title}</h1>
-							<p class={`text-shadow text-lg text-purple-200`}>{description}</p>
+							<h1 class={`@xl:text-5xl @md:text-4xl @lg:text-3xl @xs:text-2xl text-xl text-white font-semibold`}>{title}</h1>
+							<p class={`text-shadow @xl:text-2xl @md:text-xl @lg:text-lg @xs:text-base text-sm text-purple-200`}>{description}</p>
 						</div>
 						<div
 							class="absolute left-0 right-0 bottom-[2.32rem] h-4 pointer-events-none select-none  opacity-95 blur-sm backdrop-blur-sm bg-[linear-gradient(to_top,theme(colors.purple.500)_25%,transparent)] after:content-[''] after:absolute after:inset-0 after:bg-[linear-gradient(to_top,theme(colors.purple.500),transparent)]"
@@ -64,10 +64,9 @@ const writings = await Astro.glob('./writings/**/*.mdx');
 						<footer class="absolute bottom-0 left-0 h-10 bg-black/10 border-t-2 flex items-center pl-2 rounded-b-lg w-full backdrop-blur-sm">
 							<a
 								href={url}
-								class="cursor-pointer rounded-md leading-4 text-white px-1 text-sm font-bold transition-colors"
+								class="cursor-pointer rounded-md leading-4 text-white px-1 @xl:text-2xl @md:text-xl @lg:text-lg @xs:text-base text-sm font-bold transition-colors"
 							>
-								{' '}
-								Read more →{' '}
+								Read more →
 							</a>
 						</footer>
 					</article>
@@ -75,4 +74,7 @@ const writings = await Astro.glob('./writings/**/*.mdx');
 			})
 		}
 	</div>
+    <!-- <script>
+        import "https://unpkg.com/@appnest/masonry-layout?module";
+    </script> -->
 </Body>
