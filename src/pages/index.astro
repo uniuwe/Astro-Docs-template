@@ -34,71 +34,44 @@ const writings = await Astro.glob('./writings/**/*.mdx');
             <h2 class="text-lg"> Creator of @fireship-io </h2>
         </div>
     </div> -->
-	<h2 class="xl:text-7xl lg:text-6xl md:text-5xl sm:text-4xl text-3xl font-black mt-32">
+	<h2 class="xl:text-7xl lg:text-6xl md:text-5xl sm:text-4xl text-3xl font-black mt-32 mb-10">
 		Writings
 	</h2>
-	<ul>
+	<div class="grid grid-cols-4">
 		{
 			writings.map(({ frontmatter: { title, description, publishedOn, image }, url }) => {
 				const filePathArr: string[] = url.split('/');
 				const fileName = filePathArr[filePathArr.length - 1];
 				return (
-					<li class="">
-						<div class="flex">
-							{/* {image === 'filename' ? (
-							// 	<Image
-							// 		class="rounded-l-xl"
-							// 		src={import(`../images/${fileName}.png`)}
-							// 		alt="100"
-							// 		height={192}
-							// 		width={340.48}
-							// 	/>
-							// ) : image !== undefined ? (
-							// 	<Image
-							// 		class="rounded-l-xl"
-							// 		src={import(`../images/${image}.png`)}
-							// 		alt="100"
-							// 		height={720}
-							// 		width={1280}
-							// 	/>
-							// ) : (
-							// 	''
-							// )}
-              */}
-							<article
-								class={`w-64 flex place-content-between flex-col items-baseline p-4 h-48 bg-gradient-to-br ${
-									image === undefined ? 'rounded-lg' : 'rounded-r-lg'
-								}`}
-							>
-								<dl>
-									<dt class="sr-only">Published On</dt>
-									<dd class="font-medium text-sm text-shadow">
-										<time datetime={new Date(publishedOn).toISOString()}>
-											{publishedOn.split(' ')[1]},{publishedOn.split(' ')[3]}
-										</time>
-									</dd>
-								</dl>
-								<div class="h-full flex flex-col">
-									<h1 class={`text-xl font-semibold`}>{title}</h1>
-									<p
-										class={`text-shadow text-lg ${
-											title === '10 Design Patterns in TypeScript' ? 'line-clamp-2' : 'line-clamp-3'
-										}`}
-									>
-										{description}
-									</p>
-								</div>
-								<a
-									href={url}
-									class={`rounded-md px-1 text-sm font-bold transition-colors cursor-pointer`}
-								>
-									read more →
-								</a>
-							</article>
+					<article class="flex relative h-full w-full aspect-video overflow-hidden flex-col place-content-between items-baseline rounded-lg bg-gradient-to-br from-violet-400 to-purple-600 p-4">
+						<dl>
+							<dt class="sr-only">Published On</dt>
+							<dd class="text-shadow text-sm font-medium text-purple-900">
+								<time datetime={new Date(publishedOn).toISOString()}>
+									{publishedOn.split(' ')[1]},{publishedOn.split(' ')[3]}
+								</time>
+							</dd>
+						</dl>
+						<div class="flex h-full flex-col">
+							<h1 class={`text-xl text-white font-semibold`}>{title}</h1>
+							<p class={`text-shadow text-lg text-purple-200`}>{description}</p>
 						</div>
-					</li>
+						<div
+							class="absolute left-0 right-0 bottom-[2.32rem] h-4 pointer-events-none select-none  opacity-95 blur-sm backdrop-blur-sm bg-[linear-gradient(to_top,theme(colors.purple.500)_25%,transparent)] after:content-[''] after:absolute after:inset-0 after:bg-[linear-gradient(to_top,theme(colors.purple.500),transparent)]"
+							aria-hidden="true"
+						/>
+						<footer class="absolute bottom-0 left-0 h-10 bg-black/10 border-t-2 flex items-center pl-2 rounded-b-lg w-full backdrop-blur-sm">
+							<a
+								href={url}
+								class="cursor-pointer rounded-md leading-4 text-white px-1 text-sm font-bold transition-colors"
+							>
+								{' '}
+								Read more →{' '}
+							</a>
+						</footer>
+					</article>
 				);
 			})
 		}
-	</ul>
+	</div>
 </Body>
