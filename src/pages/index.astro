@@ -37,7 +37,7 @@ const writings = await Astro.glob('./writings/**/*.mdx');
 	<h2 class="xl:text-7xl lg:text-6xl md:text-5xl sm:text-4xl text-3xl font-black mt-32 mb-10">
 		Writings
 	</h2>
-	<div class="grid grid-cols-8 gap-4 grid-flow-dense">
+	<div class="flex flex-wrap children:h-44 children:min-w-[324px] gap-4">
 		{
 			writings.map(({ frontmatter: { title, description, publishedOn, image, cls }, url }) => {
 				const filePathArr: string[] = url.split('/');
