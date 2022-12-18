@@ -19,155 +19,206 @@ const builtWith = ['astro', 'typescript', 'tailwindcss'];
 
 const { layout, class: className, ...otherProps } = Astro.props;
 
-const maxW = ifArticle('max-w-2xl', 'max-w-6xl');
+// const maxW = ifArticle('max-w-4xl', 'max-w-6xl');
+const maxW = 'max-w-screen-2xl';
 const mainCls = twMerge(
-	'mt-20 flex flex-col grow items-center justify-center w-full max-w-none',
-	ifArticle('mt-4'),
-  maxW,
+	'mt-20 w-full',
+	ifArticle('mt-8'),
+	maxW,
 	className
 );
 
 const sitemap = [
-  {
-    label:"Profile",
-    icon: "heroicons-outline:user",
-  },
-  {
-    label:"Resume",
-    icon:"heroicons-outline:document-text",
-  },
-  {
-		label:"Writings",
-		icon:"heroicons-outline:pencil-alt",
-  }
-]
+	{
+		label: 'Profile',
+		url: '/profile',
+		icon: 'heroicons-outline:user',
+		theme: {
+			text: 'text-cyan-500 hover:text-white',
+			bg: 'bg-white hover:bg-cyan-400',
+			shadow: 'shadow-slate-400/60 hover:shadow-slate-600/30',
+		},
+	},
+	{
+		label: 'Resume',
+		url: '/resume',
+		icon: 'heroicons-outline:document-text',
+		theme: {
+			text: 'text-blue-500 hover:text-white',
+			bg: 'bg-white hover:bg-blue-500',
+			shadow: 'shadow-slate-400/60 hover:shadow-slate-600/30',
+		},
+	},
+	{
+		label: 'Writings',
+		url: '/writings',
+		icon: 'heroicons-outline:pencil-alt',
+		theme: {
+			text: 'text-indigo-500 hover:text-white',
+			bg: 'bg-white hover:bg-indigo-500',
+			shadow: 'shadow-slate-400/60 hover:shadow-slate-600/30',
+		},
+	},
+];
 
 const socialMedia = [
-  {
-    label:"Twitter",
-    icon:"logos:twitter"
-  },
-  {
-    label:"Linkedin",
-    icon:"logos:linkedin-icon"
-  },
-  {
-    label:"Github",
-    icon:"logos:github-icon",
-  },
-]
-
-const recentProjects = [
-  {
-    label:"",
-    lang:"Go"
-  }
-]
-
+	{
+		label: 'Twitter',
+		icon: 'logos:twitter',
+		link: 'https://twitter.com/Jeffdelaney23',
+	},
+	{
+		label: 'Linkedin',
+		icon: 'logos:linkedin-icon',
+		link: 'https://www.linkedin.com/in/jeff-delaney/',
+	},
+	{
+		label: 'Github',
+		icon: 'logos:github-icon',
+		link: 'https://github.com/codediodeio',
+	},
+];
 ---
 
 <Core
-	class="flex relative flex-col min-h-[96vh] items-center px-2 md:px-4 lg:px-6 py-4 bg-zinc-100 text-zinc-900"
+	class="flex relative flex-col min-h-screen items-center px-2 md:px-4 lg:px-6 py-4 bg-white text-slate-900 scrollbar:w-1.5 scrollbar:bg-transparent scrollbar-track:bg-purple-200 scrollbar-track:rounded-xl scrollbar-thumb:bg-clip-content scrollbar-thumb:bg-indigo-500 scrollbar-thumb:rounded-sm scrollbar-thumb:border-2"
 	{...otherProps}
 >
-	<header class="w-full max-w-screen-2xl">
-		<nav class="flex items-center gap-x-1.5 w-full select-none">
+	<header class={`w-full ${maxW}`}>
+		<nav class="flex items-center gap-x-1.5 w-full overflow-x-auto sm:overflow-visible select-none">
 			<div class="flex items-center gap-x-1.5">
-        {sitemap.map((page) => (
-          <a
-            href={page.label.toLowerCase()}
-            class="flex hover:bg-white items-center rounded-md px-2 py-1 gap-x-1 shadow-sm shadow-purple-600/30 hover:shadow-purple-400/30 bg-zinc-50 transition-colors"
-          >
-            <Sprite name={page.icon} class="w-5 h-5" />
-            <span>{page.label}</span>
-          </a>
-        ))}
-			  <button class="flex hover:bg-white items-center rounded-md px-2 py-1 gap-x-1 shadow-sm shadow-purple-600/30 hover:shadow-purple-400/30 bg-zinc-50 transition-colors">
-				  <Sprite name="fluent:search-24-regular" class="w-5 h-5 my-0.5" />
-			  </button>
-				<div
-					class="flex relative hover:bg-white items-center rounded-md px-2 py-1 gap-x-1 shadow-sm shadow-purple-600/30 hover:shadow-purple-400/30 bg-zinc-50 transition-colors group"
+				{
+					sitemap.map((page) => (
+						<a
+							href={page.url}
+							class={`flex items-center shadow-sm rounded-md px-2 py-1 gap-x-1 transition-colors ${page.theme.text} ${page.theme.bg} ${page.theme.shadow}`}
+						>
+							<Sprite name={page.icon} class="w-5 h-5" />
+							<span>{page.label}</span>
+						</a>
+					))
+				}
+				<button
+					class="flex items-center rounded-md px-2 py-1 gap-x-1 shadow-sm shadow-base-400/60 text-base-500 hover:bg-base-500 hover:text-white transition-colors"
 				>
-        <a href="/rss.xml" class="">
-					  <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24">
-              <circle cx="5" cy="12" r="1" fill="currentColor"/>
-              <circle cx="12" cy="12" r="1" fill="currentColor"/>
-              <circle cx="19" cy="12" r="1" fill="currentColor"/>
-            </svg>
+					<Sprite name="fluent:search-24-regular" class="w-5 h-5 my-0.5" />
+				</button>
+				<div
+					class="flex isolate relative hover:bg-white items-center rounded-md px-2 py-1 gap-x-1 shadow-sm shadow-base-600/30 hover:shadow-base-400/30 transition-colors group"
+				>
+					<a href="/rss.xml" class="">
+						<svg
+							fill="none"
+							height="24"
+							shape-rendering="geometricPrecision"
+							stroke="currentColor"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="1.5"
+							viewBox="0 0 24 24"
+							width="24"
+						>
+							<circle cx="5" cy="12" r="1" fill="currentColor"></circle>
+							<circle cx="12" cy="12" r="1" fill="currentColor"></circle>
+							<circle cx="19" cy="12" r="1" fill="currentColor"></circle>
+						</svg>
 						<div
 							class="absolute left-1/2 -translate-x-1/2 border-4 opacity-0 group-hover:opacity-100 border-slate-400 border-x-transparent border-t-transparent"
 						>
 						</div>
 					</a>
 					<div
-						class="absolute flex gap-x-1 w-auto p-2 min-w-max z-10 top-[36px] -left-20 origin-center rounded-md bg-white shadow text-xs font-bold transition-transform group-hover:delay-300 duration-100 scale-0 group-hover:scale-100"
+						class="absolute z-10 top-[28px] -left-32 origin-center p-2 transition-transform group-hover:delay-300 duration-100 scale-0 group-hover:scale-100"
 					>
-						<span class="inline-block">
-							<a class="underline flex items-center gap-x-1 w-max text-slate-500 hover:text-slate-800 transition-colors" href="#">
-					      <Sprite name="ph:rss-simple-bold" class="w-4 h-4" />
-                rss
-              </a>
-						</span>
-            {socialMedia.map(media => (
-              <>
-                <span class="select-none"> /</span>      
-                <span class="inline-block">
-                  <a class="underline flex items-center gap-x-1 w-max text-sky-500 hover:text-sky-800 transition-colors" href="#">
-                    <Sprite name={media.icon} class="w-4 h-4" />
-                    {media.label}
-                  </a>
-                </span>
-              </>
-            ))}
+						<div
+							class="flex gap-x-1 w-auto p-2 min-w-max rounded-md bg-white shadow shadow-slate-600/30 text-xs font-bold"
+						>
+							<span class="inline-block">
+								<a
+									class="underline flex items-center gap-x-1 w-max text-slate-500 hover:text-slate-800 transition-colors"
+									href="#"
+								>
+									<Sprite name="ph:rss-simple-bold" class="w-4 h-4" />
+									rss
+								</a>
+							</span>
+							{
+								socialMedia.map((media) => (
+									<>
+										<span class="select-none"> /</span>
+										<span class="inline-block">
+											<a
+												class="underline flex items-center gap-x-1 w-max text-sky-500 hover:text-sky-800 transition-colors"
+												href="#"
+											>
+												<Sprite name={media.icon} class="w-4 h-4" />
+												{media.label}
+											</a>
+										</span>
+									</>
+								))
+							}
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="grow flex whitespace-nowrap items-center overflow-x-scroll gap-x-2 mx-1 rounded-md">
+			<!-- need to implement carousel and note: hidden until md -->
+			<div
+				class="grow hidden md:flex whitespace-nowrap items-center overflow-auto gap-x-2 mx-1 rounded-md"
+			>
 				<span class="w-max"> Recent Projects</span>
-        <ul class="flex w-max gap-x-2 items-center">
-				<li class="flex items-center shadow-sm shadow-purple-600/30 hover:shadow-purple-400/30 rounded-md">
-					<span class="py-1.5 pr-0.5 pl-2 bg-white rounded-l-md">
-						<Sprite name="logos:typescript-icon" class="w-5 h-5" />
-					</span>
-					<span class="bg-white p-1">Algorithm Visualizer</span>
-					<span class="px-2 bg-zinc-200/50 hover:bg-zinc-200 py-2">
-						<Sprite name="radix-icons:external-link" class="w-4 h-4" />
-					</span>
-					<span class="px-2 bg-zinc-100/20 hover:bg-zinc-200 py-2 rounded-r-md">
-						<Sprite name="radix-icons:github-logo" class="w-4 h-4" />
-					</span>
-				</li>
-				<li class="flex items-center shadow-sm shadow-purple-600/30 hover:shadow-purple-400/30 rounded-md">
-					<span class="py-1.5 pr-0.5 pl-2 bg-white rounded-l-md">
-						<Sprite name="logos:go" class="w-8 h-5" />
-					</span>
-					<span class="bg-white p-1">Command line Application, Typing Master.</span>
-					<span class="px-2 bg-zinc-200/50 hover:bg-zinc-200 py-2">
-						<Sprite name="radix-icons:external-link" class="w-4 h-4" />
-					</span>
-					<span class="px-2 bg-zinc-100/20 hover:bg-zinc-200 py-2 rounded-r-md">
-						<Sprite name="radix-icons:github-logo" class="w-4 h-4" />
-					</span>
-				</li>
-				<li class="flex items-center shadow-sm shadow-purple-600/30 hover:shadow-purple-400/30 rounded-md">
-					<span class="py-1.5 pr-0.5 pl-2 bg-white rounded-l-md">
-						<Sprite name="logos:go" class="w-8 h-5" />
-					</span>
-					<span class="bg-white p-1">Payments API, built with go-stripe lib.</span>
-					<span class="px-2 bg-zinc-200/50 hover:bg-zinc-200 py-2">
-						<Sprite name="radix-icons:external-link" class="w-4 h-4" />
-					</span>
-					<span class="px-2 bg-zinc-100/20 hover:bg-zinc-200 py-2 rounded-r-md">
-						<Sprite name="radix-icons:github-logo" class="w-4 h-4" />
-					</span>
-				</li>
-        </ul>
+				<ul class="flex w-max gap-x-2 items-center">
+					<!-- <li
+						class="flex items-center shadow-sm shadow-base-600/30 hover:shadow-base-400/30 rounded-md"
+					>
+						<span class="py-1.5 pr-0.5 pl-2 bg-white rounded-l-md">
+							<Sprite name="logos:typescript-icon" class="w-5 h-5" />
+						</span>
+						<span class="bg-white p-1">Algorithm Visualizer</span>
+						<span class="px-2 bg-zinc-200/50 hover:bg-zinc-200 py-2">
+							<Sprite name="radix-icons:external-link" class="w-4 h-4" />
+						</span>
+						<span class="px-2 bg-zinc-100/20 hover:bg-zinc-200 py-2 rounded-r-md">
+							<Sprite name="radix-icons:github-logo" class="w-4 h-4" />
+						</span>
+					</li> -->
+					<li
+						class="flex items-center shadow-sm shadow-base-600/30 hover:shadow-base-400/30 rounded-md"
+					>
+						<span class="py-1.5 pr-0.5 pl-2 bg-white rounded-l-md">
+							<Sprite name="logos:go" class="w-8 h-5" />
+						</span>
+						<span class="bg-white p-1">Command line Application, Typing Master.</span>
+						<span class="px-2 bg-zinc-200/50 hover:bg-zinc-200 py-2">
+							<Sprite name="radix-icons:external-link" class="w-4 h-4" />
+						</span>
+						<span class="px-2 bg-zinc-100/20 hover:bg-zinc-200 py-2 rounded-r-md">
+							<Sprite name="radix-icons:github-logo" class="w-4 h-4" />
+						</span>
+					</li>
+					<li
+						class="flex items-center shadow-sm shadow-base-600/30 hover:shadow-base-400/30 rounded-md"
+					>
+						<span class="py-1.5 pr-0.5 pl-2 bg-white rounded-l-md">
+							<Sprite name="logos:go" class="w-8 h-5" />
+						</span>
+						<span class="bg-white p-1">Payments API, built with go-stripe lib.</span>
+						<span class="px-2 bg-zinc-200/50 hover:bg-zinc-200 py-2">
+							<Sprite name="radix-icons:external-link" class="w-4 h-4" />
+						</span>
+						<span class="px-2 bg-zinc-100/20 hover:bg-zinc-200 py-2 rounded-r-md">
+							<Sprite name="radix-icons:github-logo" class="w-4 h-4" />
+						</span>
+					</li>
+				</ul>
 			</div>
+			<!-- hides after md -->
+			<div class="grow md:hidden"></div>
 			<a
 				href="/projects"
-				class="flex hover:bg-white items-center text-zinc-900 rounded-md px-2 py-1 gap-x-1 shadow-sm shadow-purple-600/30 hover:shadow-purple-400/30 bg-zinc-50 transition-colors"
+				class="flex items-center rounded-md px-2 py-1 gap-x-1 shadow-md hover:shadow-indigo-500/50 shadow-purple-400/40 transition-colors text-violet-600 hover:text-white hover:bg-gradient-to-tr from-blue-600 to-indigo-500"
 			>
-				<span class='whitespace-nowrap'>All Projects</span>
+				<span class="whitespace-nowrap">All Projects</span>
 				<Sprite name="fluent:arrow-right-24-regular" class="w-5 h-5" />
 			</a>
 		</nav>
@@ -176,80 +227,121 @@ const recentProjects = [
 	<main class={mainCls}>
 		<slot />
 	</main>
-  <footer class="w-full place-content-around px-10 py-6 flex bg-white shadow-slate-400 shadow-xl mt-auto rounded-xl">
-    <div class="flex flex-col place-content-between">
-    <div id="newsletter">
-      <h2 class="text-xs pb-1 pl-1 font-mono text-slate-400">Newsletter</h2>
-      <form class="flex items-center isolate">
-        <div class="group relative">
-          <div class="absolute p-0.5">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pointer-events-none h-full w-6 text-slate-400 group-focus-within:text-sky-500">
-              <path d="M5 7.92C5 6.86 5.865 6 6.931 6h10.138C18.135 6 19 6.86 19 7.92v8.16c0 1.06-.865 1.92-1.931 1.92H6.931A1.926 1.926 0 0 1 5 16.08V7.92Z"></path>
-              <path d="m6 7 6 5 6-5"></path>
-            </svg>
-          </div>
-          <input 
-            name="email_address" 
-            type="email" 
-            required="" 
-            autocomplete="email"
-            aria-label="Email address" 
-            class="block w-full appearance-none rounded-l-lg rounded-r-none border border-transparent bg-white py-2 pl-7 pr-3 leading-5 h-7 text-slate-900 shadow ring-1 ring-slate-900/5 placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-400 focus:border-sky-300 focus:border-r-2"
-            placeholder="subscribe via email" 
-          />
-        </div>
-        <button type="submit" class="z-10 rounded-r-lg bg-slate-400 text-white p-1 text-sm font-semibold shadow focus:outline-none focus:ring-2 focus:ring-sky-300 hover:bg-blue-400 focus:bg-blue-400 transition-colors">
-          <svg fill="none" height="21" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="21"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
-        </button>
-      </form>
-      <h2 class="font-mono text-sm pl-1 mt-0.5 text-slate-600">No Spams, only useful, hand-picked sheet of information is shared. </h2>
-    </div>
-    <div class="">
-        built with Astro, Tailwindcss and TypeScript
-      </div>
-    </div>
-    <div class="flex flex-row gap-x-2 place-content-around">
-    <div class="flex flex-col">
-      <div class="flex items-center w-max gap-x-0.5 mb-1.5">
-      <Sprite name="fluent:map-20-regular" class="w-5 h-5" />
-      <span class="text-sm font-semibold">
-         Sitemap
-      </span>
-      </div>
-      <ul class="pl-1 flex flex-col gap-y-1">
-          {sitemap.map((page) => (
-          <li>
-            <a
-              href={page.label.toLowerCase()}
-              class="flex items-center rounded-md px-1 gap-x-1"
-            >
-              <Sprite name={page.icon} class="w-5 h-5" />
-              <span>{page.label}</span>
-            </a>
-            </li>
-          ))}
-      </ul>
-    </div>
-    <div class="flex flex-col">
-      <div class="flex items-center w-max gap-x-0.5 mb-1.5">
-      <Sprite name="fluent:link-square-20-regular" class="w-5 h-5" />
-      <span class="text-sm font-semibold">
-         Social Media
-      </span>
-      </div>
-      <ul class="pl-1.5 flex flex-col gap-y-1">
-          {socialMedia.map(media => (
-            <li>
-              <a
-                class="flex items-center rounded-md px-1 gap-x-1"
-              >
-                <Sprite name={media.icon} class="w-5 h-5" />
-                <span>{media.label}</span>
-              </a>
-            </li>
-          ))}
-      </ul>
-    </div>
-    </div>
-  </footer>
+	<footer
+		class="place-content-around min-[854px]:px-10 px-8 py-6 min-[854px]:py-6 flex flex-col gap-y-10 md:gap-y-0 md:flex-row bg-white min-[854px]:w-max gap-x-10 shadow-highlight shadow-slate-400/40 my-10 rounded-xl"
+	>
+		<div id="newsletter">
+			<h2 class="text-xs pb-1 pl-1 font-mono text-slate-400">Newsletter</h2>
+			<form class="flex items-center isolate">
+				<div class="group relative">
+					<div class="absolute p-0.5">
+						<svg
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							aria-hidden="true"
+							class="pointer-events-none h-full w-6 text-slate-400 group-focus-within:text-sky-500"
+						>
+							<path
+								d="M5 7.92C5 6.86 5.865 6 6.931 6h10.138C18.135 6 19 6.86 19 7.92v8.16c0 1.06-.865 1.92-1.931 1.92H6.931A1.926 1.926 0 0 1 5 16.08V7.92Z"
+							></path>
+							<path d="m6 7 6 5 6-5"></path>
+						</svg>
+					</div>
+					<input
+						name="email_address"
+						type="email"
+						required=""
+						autocomplete="email"
+						aria-label="Email address"
+						class="block w-full appearance-none rounded-l-lg rounded-r-none border border-transparent bg-white py-2 pl-7 pr-3 leading-5 h-7 text-slate-900 shadow ring-1 ring-slate-900/5 placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-400 focus:border-sky-300 focus:border-r-2"
+						placeholder="subscribe via email"
+					/>
+				</div>
+				<button
+					type="submit"
+					class="z-10 rounded-r-lg bg-slate-400 text-white p-1 text-sm font-semibold shadow focus:outline-none focus:ring-2 focus:ring-sky-300 hover:bg-blue-400 focus:bg-blue-400 transition-colors"
+				>
+					<svg
+						fill="none"
+						height="21"
+						shape-rendering="geometricPrecision"
+						stroke="currentColor"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="1.5"
+						viewBox="0 0 24 24"
+						width="21"
+						><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path>
+					</svg>
+				</button>
+			</form>
+			<h2 class="font-mono text-sm pl-1 mt-0.5 text-slate-600 min-[854px]:whitespace-nowrap w-full">
+				<span>No Spams</span>, <span> only useful</span>, <span> hand-picked</span>
+				<span> sheet of information</span> is <span> shared</span>.
+			</h2>
+		</div>
+		<div class="flex flex-row w-max md:w-full place-content-around gap-x-2">
+			<div class="flex flex-col">
+				<div class="flex items-center w-max gap-x-0.5 mb-1.5">
+					<!-- <svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="2"
+						stroke="currentColor"
+						class="w-5 h-5"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z"
+						></path>
+					</svg> -->
+
+					<Sprite name="fluent:map-24-regular" class="w-5 h-5" />
+					<span class="text-sm font-semibold"> Sitemap</span>
+				</div>
+				<ul class="pl-1.5 flex flex-col gap-y-1">
+					{
+						sitemap.map((page) => (
+							<li>
+								<a
+									href={page.url}
+									class="flex hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-300 text-slate-900 items-center rounded-md px-1 gap-x-1"
+								>
+									<Sprite name={page.icon} class="w-5 h-5" />
+									<span class="text-sm">{page.label}</span>
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+			<div class="flex flex-col">
+				<div class="flex items-center w-max gap-x-0.5 mb-1.5">
+					<Sprite name="fluent:link-square-20-filled" class="w-5 h-5" />
+					<span class="text-sm font-semibold">External Links</span>
+				</div>
+				<ul class="pl-3.5 flex flex-col gap-y-1 w-max">
+					{
+						socialMedia.map((media) => (
+							<li>
+								<a
+									href={media.link}
+									class="flex hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-300 text-slate-900 items-center rounded-md px-1 gap-x-1"
+								>
+									<Sprite name={media.icon} class="w-5 h-5" />
+									<span class="text-sm">{media.label}</span>
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+		</div>
+	</footer>
 </Core>

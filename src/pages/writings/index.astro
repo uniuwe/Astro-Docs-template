@@ -1,6 +1,11 @@
 ---
-import Body from "~/layouts/Default.astro"
+import Body from '~/layouts/Default.astro';
+
+const title = 'Hello Nice World';
+const writings = await Astro.glob('./**/*.mdx');
 ---
-<Body title="Web Development | Programming Writings" description="" >
-  
+
+<Body title={title} description="Description">
+    <pre class="">
+    </pre>
 </Body>
